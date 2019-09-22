@@ -41,7 +41,7 @@ class YTSubscriptions {
             if (this._initialPageToken === nextPageToken) break;
             if (!this._totalSubscriptions) this._totalSubscriptions = totalResults;
             if (!this._initialPageToken) this._initialPageToken = nextPageToken;
-            const i = items.map(item => ({ title: item.snippet.title || 'no title', id: item.snippet.channelId }));
+            const i = items.map(item => ({ title: item.snippet.title || 'no title', id: item.snippet.resourceId.channelId }));
             i.forEach(item => this.subscriptions.push(item))
         }
         return this._html()
