@@ -49,7 +49,7 @@ class YTSubscriptions {
 
     async _html() {
         let i = 1;
-        const text = this.subscriptions.map(sub => `${i++} - <a href="https://youtube.com/channel/${sub.id}">${sub.title}</a>`).join('<br>');
+        let text = this.subscriptions.map(sub => `${i++} - <a href="https://youtube.com/channel/${sub.id}">${sub.title}</a>`).join('<br>');
         if (this._totalSubscriptions !== this.subscriptions.length) text += `<br><p>Note: This channel is subscribed to ${this._totalSubscriptions - this.subscriptions.length} suspended / deleted channels</p>`
         const string = this._string();
         await fs.writeFile(`${dirname(require.main.filename)}/${string}.html`, text)
