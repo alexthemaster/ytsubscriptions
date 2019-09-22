@@ -1,0 +1,31 @@
+{
+  "name": "ytsubscriptions",
+  "version": "1.0.0",
+  "description": "Returns an HTML page with all the subscriptions of a channel",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/alexthemaster/ytsubscriptions.git"
+  },
+  "keywords": [
+    "youtube",
+    "yt",
+    "youtube",
+    "subscriptions",
+    "yt",
+    "subscriptions"
+  ],
+  "author": "Kovacs Alex <alex@atm.moe>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexthemaster/ytsubscriptions/issues"
+  },
+  "homepage": "https://github.com/alexthemaster/ytsubscriptions#readme",
+  "dependencies": {
+    "fs-extra": "^8.1.0",
+    "node-fetch": "^2.6.0"
+  }
+}
