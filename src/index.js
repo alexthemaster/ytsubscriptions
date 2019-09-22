@@ -18,6 +18,7 @@ class YTSubscriptions {
         this._timeoutMS = 0;
         this._nextPageToken = null;
         this._initialPageToken = null;
+        this._totalSubscriptions = null;
         this.subscriptions = new Array();
 
         this._init();
@@ -35,9 +36,10 @@ class YTSubscriptions {
 
     async _init() {
         for (let i = 0; i > -1; ++i) {
-            const { nextPageToken, items } = await this._fetch(this._getSubscriptions);
+            const { pageInfo: { totalResuls }, nextPageToken, items } = await this._fetch(this._getSubscriptions);
             this._nextPageToken = nextPageToken;
             if (this._initialPageToken === nextPageToken) break;
+            if (!this._totalSubscriptions) this._totalSubscriptions = totalResuls;
             if (!this._initialPageToken) this._initialPageToken = nextPageToken;
             const i = items.map(item => ({ title: item.snippet.title || 'no title', id: item.snippet.channelId }));
             i.forEach(item => this.subscriptions.push(item))
@@ -48,6 +50,7 @@ class YTSubscriptions {
     async _html() {
         let i = 1;
         const text = this.subscriptions.map(sub => `${i++} - <a href="https://youtube.com/channel/${sub.id}">${sub.title}</a>`).join('<br>');
+        if (this._totalSubscriptions !== this.subscriptions.length) text += `<br><p>Note: This channel is subscribed to ${this._totalSubscriptions - this.subscriptions.length} suspended / deleted channels</p>`
         const string = this._string();
         await fs.writeFile(`${dirname(require.main.filename)}/${string}.html`, text)
         console.log(`All done! HTML page saved to ${dirname(require.main.filename)}/${string}.html`)
